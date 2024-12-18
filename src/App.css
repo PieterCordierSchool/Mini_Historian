@@ -1,0 +1,113 @@
+/* General Body Styling */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom, #1e3c72, #2a69ac);
+  color: #fff;
+}
+
+/* Container for all content */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Heading Styling */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: white; /* Change color of the main heading */
+}
+
+/* Button Styling */
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Filter Section Styling */
+.filters {
+  margin: 20px 0;
+}
+
+/* Input field Styling */
+input {
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+  border-radius: 5px;
+  border: none;
+}
+
+/* Data Table Container Styling */
+.data-table-container {
+  height: 400px; /* Fixed height */
+  overflow-y: auto; /* Vertical scroll */
+  margin: 20px auto;
+  border: 1px solid #fff;
+}
+
+/* Data Table Styling */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Fixed column size */
+}
+
+/* Table Cell and Header Styling */
+th, td {
+  padding: 10px;
+  border: 1px solid #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: white; /* Change table text color to white */
+}
+/* Data Table Styling with Alternating Row Colors */
+.data-table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter shade for even rows */
+}
+
+.data-table tr:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.05); /* Slightly darker shade for odd rows */
+}
+
+/* Maintain text color on hover */
+.data-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Highlighted row color on hover */
+}
+
+/* Header Styling */
+th {
+  background-color: #007BFF; /* Solid background color for header */
+  color: #fff;
+  position: sticky;
+  top: 0; /* Stick header row */
+}
+
+/* Chart Container Styling */
+.chart-container {
+  margin-top: 30px;
+}
+
+/* Individual Chart Styling */
+.chart {
+  width: 100%;
+  /* Keep this for all charts */
+  color: white;
+}
+
+/* Targeting only the Pie Chart */
+.pie-chart-container {
+  width: 100%;
+   
+}
+
