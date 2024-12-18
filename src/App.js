@@ -5,6 +5,8 @@ import { Line, Bar, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement } from 'chart.js';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css';
+import Papa from 'papaparse';
+
 
 ChartJS.register(
   CategoryScale,
@@ -30,6 +32,27 @@ const App = () => {
       .then(response => setData(response.data))
       .catch(error => console.error('Error fetching data:', error));
   }, []);
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          const records = results.data.map(item => ({
+            ID: uuidv4(),
+            tagname: item.tagname,
+            quality: parseInt(item.quality, 10),
+            value: parseFloat(item.value),
+          }));
+          setGeneratedData(records);
+        },
+        error: (error) => {
+          console.error('Error parsing CSV:', error);
+        },
+      });
+    }
+  };
 
   const generateAutomatedData = (numEntries) => {
     const generatedData = [];
@@ -89,10 +112,13 @@ const App = () => {
     }
   };
 
+
   const filterAndSearchData = (data) => {
     return data.filter(item => {
-      const matchesSearch = item.tagname.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesTagname = tagnameFilter === '' || item.tagname.toLowerCase().includes(tagnameFilter.toLowerCase());
+      // Ensure item.tagname is not null or undefined before calling toLowerCase
+      const tagname = item.tagname ? item.tagname.toLowerCase() : '';
+      const matchesSearch = tagname.includes(searchQuery.toLowerCase());
+      const matchesTagname = tagname.includes(tagnameFilter.toLowerCase());
       const matchesQuality = qualityFilter === '' || item.quality.toString() === qualityFilter;
 
       return matchesSearch && matchesTagname && matchesQuality;
@@ -198,6 +224,7 @@ const App = () => {
         <button onClick={generateData}>Generate Data</button>
         <button onClick={saveDataToBackend} disabled={generatedData.length === 0}>Save Data</button>
         <button onClick={deleteAllData}>Delete All Data</button>
+        <input type="file" accept=".csv" onChange={handleFileUpload} />
       </div>
 
       <div className="filters">
@@ -212,7 +239,7 @@ const App = () => {
             {headerGroups.map(headerGroup => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map(column => (
-                  <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                  <th key={column.id} {...column.getHeaderProps()}>{column.render('Header')}</th>
                 ))}
               </tr>
             ))}
@@ -221,9 +248,9 @@ const App = () => {
             {rows.map(row => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
+                <tr key={row.id} {...row.getRowProps()}>
                   {row.cells.map(cell => (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                    <td key={cell.column.id} {...cell.getCellProps()}>{cell.render('Cell')}</td>
                   ))}
                 </tr>
               );
