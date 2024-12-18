@@ -67,7 +67,7 @@ After setting up the database, you need to update the database connection config
     const config = {
         user: 'YOUR_USERNAME',  // Update with your SQL Server username
         password: 'YOUR_PASSWORD',  // Update with your SQL Server password
-        server: 'PIETER',  // Update with your server name
+        server: 'YOUR_SERVER',  // Update with your server name
         database: 'historian_db',
         options: {
             encrypt: true,
