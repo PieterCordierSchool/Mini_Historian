@@ -100,6 +100,5 @@ The application will be running on [http://localhost:5000](http://localhost:5000
 
 ## Conclusion
 
-You are now ready to use the Historian App! If you encounter any issues, please refer to the documentation or seek help from the community.
-
+You are now ready to use the Historian App!
 
